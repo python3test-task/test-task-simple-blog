@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Персональная лента новостей{% endblock %}
+
+{% block content %}
+  {% for post in followers_posts %}
+    {% if post.author != request.user %} 
+    <h2>
+      <a href="{{ post.get_absolute_url }}">
+        {{ post.title }}
+      </a>
+    </h2>
+    <p class="date">
+      {{ post.author }} {{ post.created }} 
+    </p>
+    {{ post.body|truncatewords:30|linebreaks }}
+      <p  style="color:green">
+      {% if post.id in read %}
+        <i>Уже прочитано</i>{% else %}
+        <a href="{% url "blog:add_reading" post.id %}">Отметить прочитанным</a>
+      {% endif %}
+      </p>
+     <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Блог{% endblock %}
+
+{% block content %}
+
+<div>
+    <div style="clear: both">
+   {% if request.user.is_authenticated %}
+    <h3>Создать новый комментарий</h3>
+      <form action="." method="post">
+        {{ form_post.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Отправить"></p>
+      </form>
+  {% endif %}
+  </div>
+  <div style="clear: both">
+  <hr><hr><hr>
+  {% for post in posts %}   
+    <h2>
+      <a href="{{ post.get_absolute_url }}">
+        {{ post.title }}
+      </a>
+    </h2>
+    <p class="date">
+      {{ post.author }} {{ post.created }} 
+    </p>
+      {{ post.body|truncatewords:30|linebreaks }}
+    <hr>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}
+

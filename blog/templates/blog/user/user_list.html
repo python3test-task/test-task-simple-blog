@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Блогеры{% endblock %}
+
+{% block content %}
+  <h3>Для того чтобы подписаться/отписаться выберите соответствующего автора:</h3>
+    <hr>
+  <div>
+    {% for user in users %}
+      <div>
+        <a href="{{ user.username }}">{{ user.username }}</a> 
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
